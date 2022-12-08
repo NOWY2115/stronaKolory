@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomocnik CSS | Kolory</title>
+    <link rel="stylesheet" href="styl2.css">
+</head>
+<body>
+    <nav id="menu-container">
+        <div id="menu-header">
+            <h1>Pomocnik CSS</h1>
+        </div>
+        <div id="menu-list">
+            <ul>
+                <a href="kolory.html"><li class="menu-item">Kolory</li></a>
+                <a href="czcionki.html"><li class="menu-item">Czcionki</li></a>
+                <a href="style.html"><li class="menu-item">Style CSS</li></a>
+                <a href="https://www.w3schools.com/css/" target="_blank"><li class="menu-item">Pomoc</li></a>
+            </ul>
+        </div>
+    </nav>
+    <main id="main">
+        <h2>Podaj składową H koloru w kodzie HSL</h2>
+        <p>0 do 30 czerwienie, do 60 zółcie, do 150 zielenie, do 250 niebieskie, do 360 fiolet i purpura</p>
+        <img src="kolory.jpg" alt="Przestrzeń barw HSL"><br>
+        <span><input type="number" name="hsl" id="hsl" placeholder="0 - 360"><button id="btn-1">Generuj paletę</button><span id="blad"></span></span>
+        <table>
+            <tr>
+                <td colspan="4" id="kol">Kolor główny</td>
+            </tr>
+            <tr>
+                <td id="kol">Kolor 2</td>
+                <td id="kol">Kolor 3</td>
+                <td id="kol">Kolor 4</td>
+                <td id="kol">Kolor 5</td>
+            </tr>
+        </table>
+    </main>
+    <footer id="footer">Autor: XXXXXXXXXXX</footer>
+    <script>
+        let pola = document.querySelectorAll("#kol");
+        let guzik = document.querySelector("#btn-1");
+        let blad = document.querySelector("#blad");
+        let wyrReg = /^\d{1,}$/;
+        let wartoscPole = document.querySelector("#hsl");
+
+        let walidacja = () => {
+            let wartosc = wartoscPole.value;
+            if (wartosc == "")
+            {
+                blad.innerHTML = "Wartość pola jest pusta bądź ma niewłaściwy format";
+                wartoscPole.focus();
+                return false;
+            } else if (wartosc < 0 || wartosc > 360)
+            {
+                blad.innerHTML = "Wartość podana z niewłaściwego zakresu. Podaj wartość z zakresu 0-360";
+                wartoscPole.focus();
+                return false;
+            } else
+            {
+                blad.innerHTML = "";
+                return true;
+            }
+        }
+
+        let generacja = () => {
+            let wartoscH = wartoscPole.value;
+            let wartoscS = 100;
+            for (let i = 0; i < pola.length; i++)
+            {
+                pola[i].style.backgroundColor = "hsl(" + wartoscH + ", " + wartoscS + "%, 50%)";
+                wartoscS -= 20;
+            }
+        }
+
+        window.onload = function(){
+            wartoscPole.focus();
+        }
+
+        wartoscPole.onblur = walidacja;
+
+        guzik.addEventListener("click", function(){
+            if (walidacja())
+            {
+                generacja();
+                return;
+            }
+            for (let i = 0; i < pola.length; i++)
+            {
+                pola[i].style.backgroundColor = "transparent";
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+Przeglądarki na których strona była testowana: Google Chrome, Mozilla Firefox, Opera GX
